@@ -1,0 +1,107 @@
+<script>
+    
+    var url = "https://docs.google.com/spreadsheets/d/18uGfzwt2jcoP3fmbEYfaX0WP8Q0HrE_8Pg7qBznQPGE/edit#gid=0";
+    var judgeNumber = parseInt(document.getElementById("judgeNumber").value, 10);
+    
+    document.getElementById("clear").addEventListener("click",doClear);
+    document.getElementById("submit").addEventListener("click",doSubmit);
+    document.getElementById("submitMessage").addEventListener("click",doSubmitMessage);
+    document.getElementById("clearMessage").addEventListener("click",doClearMessage);
+    
+    function setTitle() {
+    
+        if(judgeNumber > 7) {
+            let convertedNumber = judgeNumber - 7;
+            document.getElementById("title").innerHTML = "Synchronisation Judge " + convertedNumber;
+        }
+        
+    }
+    
+    function scoreClick(clickNumber) {
+        
+        let str = document.getElementById("currentScore").value;
+        
+        if(clickNumber == 0.5) {
+            if(str != "" && str != "10" && str.indexOf(".") < 0 ) {
+                document.getElementById("currentScore").value += ".5";
+            }
+        }
+        else {
+            document.getElementById("currentScore").value = clickNumber;
+        }
+        
+    }
+    
+    function realtimeMonitorHandler(cell) {
+    
+       document.getElementById("rmessage").innerHTML = cell.rmessage;
+       
+       if(cell.scores[0][0] == "OK") {
+       
+           let judge_string = "<tr>", score_string = "<tr>";
+           
+           for(let i = 1; i < cell.scores[0].length; i++) {
+               
+               if(cell.scores[0][i] == "") continue;
+               
+               if(i <= 7) {
+                   judge_string += "<td>Judge " + i + "</td>";
+               } else {
+               
+                   let number = i -7;
+                   
+                   judge_string += "<td>Sync J" + number + "</td>";
+                   
+               }
+               
+               score_string += "<td>" + cell.scores[0][i] + "</td>";
+               
+           }
+           
+           judge_string += "</tr>";
+           score_string += "</tr>";
+           
+           judge_string = "<table class = 'table'>" + judge_string + score_string + "</table>";
+           
+           document.getElementById("result").innerHTML = judge_string;
+       }
+       
+    }
+    
+    setInterval(() => {
+      google.script.run.withSuccessHandler(realtimeMonitorHandler).realtimeMonitor(judgeNumber);
+    }, 500);
+    
+    function doSubmit(){
+          
+       let current_score = document.getElementById("currentScore").value;
+       
+       google.script.run.submit(current_score, judgeNumber);
+       
+       document.getElementById("currentScore").value = "";
+       
+    }
+
+    function doClear(){
+    
+       document.getElementById("currentScore").value = "";
+       
+    }
+    
+    function doClearMessage(){
+    
+       document.getElementById("message").value = ""; 
+       
+    }
+    
+    function doSubmitMessage(){
+    
+       let message = document.getElementById("message").value;
+       
+       google.script.run.message(message, judgeNumber);
+       
+       document.getElementById("message").value = "";
+       
+    }
+  
+</script>

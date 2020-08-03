@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+	
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+	
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		
+		<div class="mt-2">
+			<h1 class="bg-success text-white p-1 text-center">Welcome Judge Pad</h1>
+		</div>
+
+		<div class="card bg-light text-dark">
+			<div class="card-body text-center">
+				<h3 class="text-black-50">Which judge are you?</h3>
+                <input class="form-control password" placeholder='Enter your password' />
+			</div>
+
+			<div class="list-group m-1">
+				<a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge1')" class="list-group-item list-group-item-action">Execution Judge 1</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge2')" class="list-group-item list-group-item-action">Execution Judge 2</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge3')" class="list-group-item list-group-item-action">Execution Judge 3</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge4')" class="list-group-item list-group-item-action">Execution Judge 4</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge5')" class="list-group-item list-group-item-action">Execution Judge 5</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge6')" class="list-group-item list-group-item-action">Execution Judge 6</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge7')" class="list-group-item list-group-item-action">Execution Judge 7</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge8')" class="list-group-item list-group-item-action">Synchronisation Judge 1</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge9')" class="list-group-item list-group-item-action">Synchronisation Judge 2</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge10')" class="list-group-item list-group-item-action">Synchronisation Judge 3</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge11')" class="list-group-item list-group-item-action">Synchronisation Judge 4</a>
+                <a onclick="gotoUrl('<?= ScriptApp.getService().getUrl() ?>?v=judge12')" class="list-group-item list-group-item-action">Synchronisation Judge 5</a>
+			</div>
+		</div>
+	</div>
+  </body>
+  <script>
+   function gotoUrl(url){
+      var password =  $(".password").val();
+      location.href = url + "&pass=" + password;
+      console.log(location.href);
+   }
+  </script>
+</html>
+
